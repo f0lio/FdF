@@ -1,0 +1,8 @@
+.vscode
+*.dSYM*
+.DS_*
+_*.py
+*.out
+*.in
+*.swp
+*.o
