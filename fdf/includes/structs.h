@@ -4,12 +4,26 @@
 
 typedef char		t_bool;
 
+typedef struct		s_node
+{
+	void			*data;
+	struct s_node	*next;
+}					t_node;
+
+typedef struct		s_file
+{
+	int				fd;
+	int				lines_count;
+	t_node			*lines;
+	char			**map;
+
+}					t_file;
+
 typedef struct		s_env
 {
 	int				argc;
-	char			**argv;
-	char			**map;
-	int				map_fd;
+	const char		**argv;
+	t_file			file;
 }					t_env;
 
 #endif

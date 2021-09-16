@@ -6,7 +6,7 @@ NAME	=	fdf
 HEADERS = ./includes
 PARSER	= read_line.c read_map.c
 ENGINE	= 
-UTILS	= exit_handlers.c write_utils.c str_utils.c
+UTILS	= exit_handlers.c write_utils.c str_utils.c linked_list.c
 
 SRC		=	src/fdf.c\
 			$(PARSER:%.c=./src/parser/%.c)\
