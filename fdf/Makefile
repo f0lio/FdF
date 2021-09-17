@@ -5,11 +5,12 @@ NAME	=	fdf
 
 HEADERS = ./includes
 PARSER	= read_line.c read_map.c
-ENGINE	= 
-UTILS	= exit_handlers.c write_utils.c str_utils.c linked_list.c
+ENGINE	= window.c
+UTILS	= constructors.c exit_handlers.c write_utils.c str_utils.c linked_list.c
 
 SRC		=	src/fdf.c\
 			$(PARSER:%.c=./src/parser/%.c)\
+			$(ENGINE:%.c=./src/engine/%.c)\
 			$(UTILS:%.c=./src/utils/%.c)
 
 CC		=	gcc
@@ -19,7 +20,7 @@ _MLX_	=	-I minilibx -lmlx -framework OpenGL -framework AppKit
 all: $(NAME)
 
 $(NAME): $(SRC)
-	@$(CC) $(SRC) -I$(HEADERS) $(_MLX_) -o $(NAME)   -g #$(FLAGS)
+	@$(CC) $(SRC) -I$(HEADERS) $(_MLX_) -o $(NAME) -fsanitize=address  -g #$(FLAGS)
 
 clean:
 	@rm -rf *.o

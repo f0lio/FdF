@@ -11,11 +11,16 @@ void    open_map(t_env *env)
 void    read_map(t_env *env)
 {
     char    *line;
+    char    *map;
     t_file  *file;
-
+    
     file = &env->file;
-    while (read_line(file->fd, &line) > 0 && ++file->lines_count)
-        push_back(&file->lines, line);
+    while (read_line(file->fd, &line) > 0)
+    {
+        push_back(&file->lines, str_dup(line));
+        free(line);
+        file->lines_count++;
+    }
 }
 
 void    parse_map(t_env *env)
@@ -27,16 +32,14 @@ void    parse_map(t_env *env)
     int     len;
 
     file = &env->file;
+    file->map = (char**) malloc((file->lines_count + 1) * sizeof(char*));
     it = file->lines;
-    file->map = malloc(file->lines_count + 1);
-    file->map[file->lines_count] = NULL;
     i = 0;
-    while (i < file->lines_count)
+    while (it)
     {
         line = it->data;
         len = str_len(line);
-        file->map[i] = malloc(len + 1); //pro-tech-shen?
-        file->map[i][len] = 0;
+        file->map[i] = line; //pro-tech-shen?
         it = it->next;
         i++;
     }
