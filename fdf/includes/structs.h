@@ -6,10 +6,17 @@ typedef char		t_bool;
 
 typedef struct		s_point
 {
-	float			x;
-	float			y;
+	int				x;
+	int				y;
 	int				color;
 }					t_point;
+
+typedef struct		s_vec
+{
+	t_point			start;
+	t_point			end;
+	int				color;
+}					t_vec;
 
 typedef struct		s_node
 {
@@ -39,10 +46,19 @@ typedef struct		s_win
 	int				endian;
 }					t_win;
 
+typedef struct		s_matrix
+{
+	int				rows;
+	int				cols;
+	int				**data;
+}					t_matrix;
+
 typedef struct		s_env
 {
 	t_win			win;
 	t_file			file;
+	t_matrix		matrix;
+	int				zoom;
 	int				argc;
 	const char		**argv;
 }					t_env;

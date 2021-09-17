@@ -3,28 +3,28 @@
 
 void    render(t_env *env)
 {
-    int i, j;
-    t_point p;
-    t_win *win;
-    
-    win = &env->win;
+    t_vec   line;
+    int     x;
+    int     y;
 
-    p.color = 0xffffff;
-    i = 20;
-    while (i < 100)
+    reset_vec(&line);
+    y = 0;
+    while (y < env->matrix.rows)
     {
-        j = 20;
-        p.x = i;
-        while (j < 100)
+        x = 0;
+        while (x < env->matrix.cols)
         {
-            p.y = j;
-			pxl(env, &p);
-            j++;
+            set_point(&line.start, x, y);
+            set_line(env, &line, x + 1, y);
+            draw_line(env, &line);
+
+            set_line(env, &line, x, y + 1);
+            draw_line(env, &line);
+            
+            x++;
         }
-        i++;
+        y++;
     }
-
-   update_window(env);
+    update_window(env);
 }
-
 

@@ -21,8 +21,23 @@ void    init_file(t_file *file)
 
 void    init_env(t_env *env, int argc, const char **argv)
 {
+    env->zoom = ZOOM;
     env->argc = argc;
     env->argv = argv;
     init_file(&env->file);
     init_win(&env->win);
+}
+
+void    reset_vec(t_vec *vec)
+{
+    vec->color = DEFAULT_COLOR;
+    reset_point(&vec->start);
+    reset_point(&vec->end);
+}
+
+void    reset_point(t_point *p)
+{
+    p->color = DEFAULT_COLOR;
+    p->x = 0;
+    p->y = 0;
 }

@@ -25,22 +25,43 @@ void    read_map(t_env *env)
 
 void    parse_map(t_env *env)
 {
-    t_file  *file;
-    t_node  *it;
-    char    *line;
-    int     i;
-    int     len;
+    t_matrix    *matrix;
+    t_node      *it;
+    int         i;
 
-    file = &env->file;
-    file->map = (char**) malloc((file->lines_count + 1) * sizeof(char*));
-    it = file->lines;
+    matrix = &env->matrix;
+    matrix->rows = env->file.lines_count;
+    matrix->data = (int**) malloc((matrix->rows + 1) * sizeof(int*));
+    it = env->file.lines;
     i = 0;
     while (it)
     {
-        line = it->data;
-        len = str_len(line);
-        file->map[i] = line; //pro-tech-shen?
+        matrix->data[i] = parse_map_line(it->data, &matrix->cols);
         it = it->next;
         i++;
+    }    
+}
+
+int    *parse_map_line(char *line, int *cols)
+{
+    int     *nums;
+    int     i;
+    int     col;
+    int     len;
+
+    len = 0;
+    col = 1;
+    while (line[len])
+        col += line[len++] == ' ';
+    nums = (int*)malloc(col * sizeof(int));
+    i = 0;
+    col = 0;
+    while (i < len)
+    {
+        nums[col] = str_to_int(&line[i]);
+        i += nbr_len(nums[col]) + 1;    
+        col++;
     }
+    *cols = col;
+    return nums;
 }

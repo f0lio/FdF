@@ -11,8 +11,13 @@
 # define ERR_OPEN           "FAILED AT OPENING FILE"
 # define ERR_ARG            "You must provide one valid map as an argument"
 
-
 # define EXIT_BTN		 17
 # define ESC_KEY		 53
+
+# define ZOOM           20
+
+
+# define DEFAULT_COLOR  WHITE
+# define WHITE          0xffffff
 
 #endif
