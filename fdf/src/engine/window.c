@@ -28,3 +28,9 @@ void	set_window(t_env *env)
 	win->img_d = (int*)mlx_get_data_addr(
 		win->img_p, &win->bpp, &win->size_line, &win->endian);
 }
+
+void	update_window(t_env *env)
+{
+	mlx_put_image_to_window(
+		env->win.mlx_p, env->win.win_p, env->win.img_p, 0, 0);
+}
