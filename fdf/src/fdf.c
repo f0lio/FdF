@@ -8,6 +8,8 @@ static void    setup(t_env *env)
     open_map(env);
     read_map(env);
     parse_map(env);
+    env->horizontal_shift = env->win.width / 3;
+    env->vertical_shift = env->win.height / 3;
     //check map validity
 }
 

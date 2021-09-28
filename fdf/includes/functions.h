@@ -5,20 +5,18 @@
 void		init_env(t_env *env, int argc, const char **argv);
 void		init_file(t_file *file);
 void		init_win(t_win *win);
-
-static 
-void		setup(t_env *env);
-static
-int			update(int key, t_env *env);
-void        update_window(t_env *env);
+void        clear_window(t_env *env);
 
 void        start_engine(t_env *env);
-void		render(t_env *env);
+static void setup(t_env *env);
+static void render(t_env *env);
+static int  update(int key, t_env *env);
+void        update_window(t_env *env);
 
 void		open_map(t_env *env);
 void		read_map(t_env *env);
 void		parse_map(t_env *env);
-int         *parse_map_line(char *line, int *cols);
+int         *parse_map_line(char *line, int row, int *cols);
 int			read_line(int fd, char **line);
 
 void		error_exit(t_env *env, char *msg);
@@ -40,18 +38,16 @@ void		pxl(t_env *env, t_point *p);
 void		set_window(t_env *env);
 int			close_window(t_env *env);
 
-void        draw_line(t_env *env, t_vec *line);
+void        project_line(t_env *env, float x, float y, float x1, float y1);
 
 
 void        reset_point(t_point *p);
-void        reset_vec(t_vec *vec);
 
-void        set_point(t_point *p, int x, int y);
-void        set_line(t_env *env, t_vec *line, int x, int y);
+void        set_point(t_point *p, int x, int y, int zoom);
 
-void        set_zoom(int zoom, t_vec *line);
+void        set_projection(t_env *env, float *x, float *y);
+float       get_max(float a, float b);
 
-
-
+void controllers(t_env *env, int key);
 
 #endif

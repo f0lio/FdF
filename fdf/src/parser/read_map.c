@@ -34,17 +34,18 @@ void    parse_map(t_env *env)
     matrix->data = (int**) malloc((matrix->rows + 1) * sizeof(int*));
     it = env->file.lines;
     i = 0;
+    
     while (it)
     {
-        matrix->data[i] = parse_map_line(it->data, &matrix->cols);
+        matrix->data[i] = parse_map_line(it->data, i, &matrix->cols);
         it = it->next;
         i++;
     }    
 }
 
-int    *parse_map_line(char *line, int *cols)
+int    *parse_map_line(char *line, int row, int *cols)
 {
-    int     *nums;
+    int     *points;
     int     i;
     int     col;
     int     len;
@@ -53,15 +54,17 @@ int    *parse_map_line(char *line, int *cols)
     col = 1;
     while (line[len])
         col += line[len++] == ' ';
-    nums = (int*)malloc(col * sizeof(int));
+    points = (int*)malloc(col * sizeof(int));
     i = 0;
     col = 0;
     while (i < len)
     {
-        nums[col] = str_to_int(&line[i]);
-        i += nbr_len(nums[col]) + 1;    
+        points[col] = str_to_int(&line[i]);
+        i += nbr_len(points[col]) + 1;    
         col++;
+        // printf("$$%d\n", col);
     }
+    // printf("##################\n##################\n##################\n");
     *cols = col;
-    return nums;
+    return points;
 }

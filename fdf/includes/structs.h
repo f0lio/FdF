@@ -2,21 +2,13 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-typedef char		t_bool;
-
 typedef struct		s_point
 {
-	int				x;
-	int				y;
+	float			x;
+	float			y;
+	float			z;
 	int				color;
 }					t_point;
-
-typedef struct		s_vec
-{
-	t_point			start;
-	t_point			end;
-	int				color;
-}					t_vec;
 
 typedef struct		s_node
 {
@@ -58,7 +50,10 @@ typedef struct		s_env
 	t_win			win;
 	t_file			file;
 	t_matrix		matrix;
+	float			horizontal_shift;
+	float			vertical_shift;
 	int				zoom;
+	double			angle;
 	int				argc;
 	const char		**argv;
 }					t_env;

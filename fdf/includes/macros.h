@@ -11,13 +11,26 @@
 # define ERR_OPEN           "FAILED AT OPENING FILE"
 # define ERR_ARG            "You must provide one valid map as an argument"
 
-# define EXIT_BTN		 17
-# define ESC_KEY		 53
+# define BOOL               char
 
-# define ZOOM           20
+#if __APPLE__
+    # define KEY_ESC        53
+    # define EXIT_BTN       17
+# else
+    # define KEY_ESC        65307
+    # define EXIT_BTN       -1
+    # define KEY_UP         65362
+    # define KEY_LEFT       65361
+    # define KEY_RIGHT      65363
+    # define KEY_DOWN       65364
+# endif
 
+# define ANGLE              0.8 //0.523599
+# define ZOOM               20
+# define SHIFT_SPEED        3
 
-# define DEFAULT_COLOR  WHITE
-# define WHITE          0xffffff
+# define DEFAULT_COLOR      WHITE
+# define WHITE              0xffffff
+# define BLACK              0x000
 
 #endif

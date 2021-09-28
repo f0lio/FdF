@@ -31,6 +31,22 @@ void	set_window(t_env *env)
 
 void	update_window(t_env *env)
 {
+	// mlx_clear_window(env->win.mlx_p, env->win.win_p);
 	mlx_put_image_to_window(
 		env->win.mlx_p, env->win.win_p, env->win.img_p, 0, 0);
+}
+
+void	clear_window(t_env *env)
+{
+	t_point p;
+
+	p.y = 0;
+	p.color = BLACK;
+	while (p.y < env->win.height)
+	{
+		p.x = -1;
+		while (++p.x < env->win.width)
+			pxl(env, &p);
+		p.y++;
+	}
 }

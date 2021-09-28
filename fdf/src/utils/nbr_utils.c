@@ -34,3 +34,10 @@ int		nbr_len(long i)
 		i /= 10;
 	return (len);
 }
+
+float get_max(float a, float b)
+{
+    if (a > b)
+        return a;
+    return b;
+}

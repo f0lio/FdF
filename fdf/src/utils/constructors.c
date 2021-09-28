@@ -22,17 +22,13 @@ void    init_file(t_file *file)
 void    init_env(t_env *env, int argc, const char **argv)
 {
     env->zoom = ZOOM;
+    env->angle = ANGLE;
     env->argc = argc;
     env->argv = argv;
+    env->horizontal_shift = 0;
+    env->vertical_shift = 0;
     init_file(&env->file);
     init_win(&env->win);
-}
-
-void    reset_vec(t_vec *vec)
-{
-    vec->color = DEFAULT_COLOR;
-    reset_point(&vec->start);
-    reset_point(&vec->end);
 }
 
 void    reset_point(t_point *p)
@@ -40,4 +36,5 @@ void    reset_point(t_point *p)
     p->color = DEFAULT_COLOR;
     p->x = 0;
     p->y = 0;
+    p->z = 0;
 }
