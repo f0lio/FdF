@@ -4,8 +4,8 @@
 NAME	=	fdf
 
 HEADERS = 	./includes -lm
-PARSER	= 	read_line.c read_map.c
-ENGINE	= 	render.c draw.c window.c controllers.c
+PARSER	= 	read_line.c read_map.c parse_map.c
+ENGINE	= 	render.c window.c event_hooks.c
 UTILS	= 	constructors.c exit_handlers.c write_utils.c linked_list.c\
 			str_utils.c nbr_utils.c
 
@@ -16,13 +16,14 @@ SRC		=	src/fdf.c\
 
 CC		=	gcc
 FLAGS	=	-Werror -Wextra -Wall
+DBG		=	-g -fsanitize=address  
 # _MLX_	=	-I minilibx -lmlx -framework OpenGL -framework AppKit
 _MLX_	=	-L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11
 
 all: $(NAME)
 
 $(NAME): $(SRC)
-	@$(CC) $(SRC) -I$(HEADERS) $(_MLX_) -o $(NAME) -fsanitize=address  -g #$(FLAGS)
+	@$(CC) $(SRC) -I$(HEADERS) $(_MLX_) -o $(NAME) $(DBG) #$(FLAGS)
 
 clean:
 	@rm -rf *.o
@@ -31,3 +32,6 @@ fclean: clean
 	@-rm -f $(NAME)
 
 re: fclean all
+
+demo: $(NAME)
+	./$(NAME) ../maps/demo.fdf

@@ -1,6 +1,38 @@
 
 #include "fdf.h"
 
+
+int str_hex_to_int(const char *hex)
+{
+    int		i;
+	int		base;
+	int		decimal;
+
+	decimal = 0;
+	base = 1;
+	i = str_len(hex);
+    while (i >= 0)
+    {
+        if (hex[i] >= '0' && hex[i] <= '9')
+        {
+            decimal += (hex[i] - 48) * base;
+            base *= 16;
+        }
+        else if(hex[i] >= 'A' && hex[i] <= 'F')
+        {
+            decimal += (hex[i] - 55) * base;
+            base *= 16;
+        }
+        else if(hex[i] >= 'a' && hex[i] <= 'f')
+        {
+            decimal += (hex[i] - 87) * base;
+            base *= 16;
+        }
+		i--;
+    }
+	return (decimal);
+}
+
 int		str_to_int(const char *str)
 {
     int		i;

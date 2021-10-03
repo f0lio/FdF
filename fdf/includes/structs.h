@@ -16,6 +16,12 @@ typedef struct		s_node
 	struct s_node	*next;
 }					t_node;
 
+typedef struct		s_string
+{
+	char			*buf;
+	int				len;
+}					t_string;
+
 typedef struct		s_file
 {
 	int				fd;
@@ -42,7 +48,8 @@ typedef struct		s_matrix
 {
 	int				rows;
 	int				cols;
-	int				**data;
+	t_point			**data;
+	BOOL			has_colors;
 }					t_matrix;
 
 typedef struct		s_env

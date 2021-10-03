@@ -1,26 +1,52 @@
 
 #include "fdf.h"
 
-void    start_engine(t_env *env)
+void isometric_projection(float *x, float *y, float z, double angle)
 {
-    set_window(env);
-    render(env);
-    mlx_hook(env->win.win_p, 2, 1L << 0, update, env);
-	mlx_hook(env->win.win_p, EXIT_BTN, 1L << 0, close_window, env);
-	mlx_loop(env->win.mlx_p);
+	*x = (*x - *y) * cos(angle);
+	*y = (*x + *y) * sin(angle) - z;
 }
 
-static int    update(int key, t_env *env)
+void set_projection(t_env *env, float *x, float *y)
 {
-	if (key == KEY_ESC)
-        close_window(env);
-    controllers(env, key);
-    clear_window(env);
-    render(env);    
-    return 0;
+	t_point p;
+
+	p = env->matrix.data[(int)*y][(int)*x];
+	*x *= env->zoom;
+	*y *= env->zoom;
+	isometric_projection(x, y, 	p.z, ANGLE);
+	*x += env->horizontal_shift;
+	*y += env->vertical_shift;
 }
 
-static void    render(t_env *env)
+void project_line(t_env *env, float x, float y, float x1, float y1)
+{
+	t_point steps;
+    t_point p;
+
+	p.color =  env->matrix.data[(int)y][(int)x].color;
+	set_projection(env, &x, &y);
+	set_projection(env, &x1, &y1);
+	steps.x = x1 - x;
+	steps.y = y1 - y;
+	steps.z = get_max(fabs(steps.x), fabs(steps.y));
+	steps.x /= steps.z;
+	steps.y /= steps.z;
+	p.x = x;
+    p.y = y;
+	
+	while ((int)(p.x - x1) || (int)(p.y - y1))
+	{
+        pxl(env, &p);
+		p.x += steps.x;
+		p.y += steps.y;
+		if (p.x < 0 || p.x > env->win.width 
+            || p.y < 0 || p.y > env->win.height)
+			break ;
+	}
+}
+
+void	render(t_env *env)
 {
     int     x;
     int     y;

@@ -17,21 +17,23 @@ static	char			*join_chr(char const *line, char c, size_t len)
 
 int						read_line(int fd, char **line)
 {
-	char		buffer;
-	int			res;
+	int			ret;
+	int			len;
+	char		buf;
 	char		*tmp;
-	size_t		len;
 
 	if (!line || !(*line = (char *)malloc(1)))
 		return (-1);
 	**line = '\0';
 	len = 0;
-	while ((res = read(fd, &buffer, 1)) > 0 && buffer != '\n')
+	while ((ret = read(fd, &buf, 1)) > 0 && buf != '\n')
 	{
-		if (!(tmp = join_chr(*line, buffer, ++len)))
+		if (!(tmp = join_chr(*line, buf, ++len)))
 			return (-1);
 		free(*line);
 		*line = tmp;
 	}
-	return (res);
+	if (ret == -1)
+		return (-1);
+	return (len);
 }

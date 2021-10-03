@@ -27,6 +27,7 @@ void    init_env(t_env *env, int argc, const char **argv)
     env->argv = argv;
     env->horizontal_shift = 0;
     env->vertical_shift = 0;
+    env->matrix.has_colors = FALSE;
     init_file(&env->file);
     init_win(&env->win);
 }

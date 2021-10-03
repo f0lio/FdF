@@ -7,17 +7,30 @@ void		init_file(t_file *file);
 void		init_win(t_win *win);
 void        clear_window(t_env *env);
 
-void        start_engine(t_env *env);
-static void setup(t_env *env);
-static void render(t_env *env);
-static int  update(int key, t_env *env);
-void        update_window(t_env *env);
+static void
+			setup(t_env *env);
+static void
+			start_engine(t_env *env);
+void		update(t_env *env);
+void		update_window(t_env *env);
+
+void		render(t_env *env);
+
+void		set_event_hooks(t_env *env);
+int			key_hook(int key, t_env *env);
+
+static int
+			mouse_hook(int btn, int x, int y, t_env *env);
 
 void		open_map(t_env *env);
 void		read_map(t_env *env);
-void		parse_map(t_env *env);
-int         *parse_map_line(char *line, int row, int *cols);
 int			read_line(int fd, char **line);
+
+void		parse_map(t_env *env);
+t_point		*parse_map_line(t_string *str, int *cols);
+
+
+char		*get_hex_from_line(char *line);
 
 void		error_exit(t_env *env, char *msg);
 void		clean_exit(t_env *env, int exit_code);
@@ -28,8 +41,12 @@ void		put_str(char *str);
 char		*str_join(char const *s1, char const *s2);
 char		*str_dup(const char *s1);
 
+t_string    *init_string(int size);
+t_string    *make_string(char *buff, int len);
+int         str_hex_to_int(const char *str);
 int         str_to_int(const char *str);
 int         nbr_len(long i);
+int         count_by_delim(char *str, char c);
 
 t_node		*new_node(void);
 void		push_back(t_node **list, void *data);
@@ -48,6 +65,6 @@ void        set_point(t_point *p, int x, int y, int zoom);
 void        set_projection(t_env *env, float *x, float *y);
 float       get_max(float a, float b);
 
-void controllers(t_env *env, int key);
+void        controllers(t_env *env, int key);
 
 #endif
