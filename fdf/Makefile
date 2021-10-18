@@ -4,10 +4,10 @@
 NAME	=	fdf
 
 HEADERS = 	./includes -lm
-PARSER	= 	read_line.c read_map.c parse_map.c
-ENGINE	= 	render.c window.c event_hooks.c
+PARSER	= 	read_line.c parse_map.c parse_line.c
+ENGINE	= 	render.c window.c event_hooks.c show_info.c
 UTILS	= 	constructors.c exit_handlers.c write_utils.c linked_list.c\
-			str_utils.c nbr_utils.c
+			string.c str_utils.c nbr_utils.c
 
 SRC		=	src/fdf.c\
 			$(PARSER:%.c=./src/parser/%.c)\

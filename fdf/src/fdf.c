@@ -7,7 +7,6 @@ static void    setup(t_env *env)
         error_exit(env, ERR_ARG);
     env->horizontal_shift = env->win.width / 3;
     env->vertical_shift = env->win.height / 3;
-    open_map(env);
     read_map(env);
     parse_map(env);
 }

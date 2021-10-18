@@ -42,7 +42,7 @@ int		str_to_int(const char *str)
 	i = 0;
 	num = 0;
 	sign = 1;
-	while (*(str + i) == ' ')
+	while (*(str + i) == ' ' || *(str + i) == '\t')
 		i++;
 	if (*(str + i) == '-')
 	{

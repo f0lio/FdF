@@ -28,8 +28,16 @@ typedef struct		s_file
 	int				lines_count;
 	t_node			*lines;
 	char			**map;
-
 }					t_file;
+
+
+typedef struct		s_info
+{
+	char			*res;
+	char			*zoom;
+	char			*angle;
+}					t_info;
+
 
 typedef struct		s_win
 {
@@ -56,9 +64,19 @@ typedef struct		s_env
 {
 	t_win			win;
 	t_file			file;
+	t_info			info;
 	t_matrix		matrix;
 	float			horizontal_shift;
 	float			vertical_shift;
+	
+	BOOL			clicked;
+	BOOL			iso;
+	BOOL			show_info;
+	int				old_x;
+	int				old_y;
+
+	int				alt_scale;
+	
 	int				zoom;
 	double			angle;
 	int				argc;

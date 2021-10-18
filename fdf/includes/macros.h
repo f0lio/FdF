@@ -27,19 +27,30 @@
     # define KEY_DOWN       65364
     # define KEY_PLUS       61
     # define KEY_MINUS      45
+    # define KEY_V          118
+    # define KEY_SPACE      32
     # define MOUSE_DOWN     4
+    # define MOUSE_CLICK    1
     # define MOUSE_UP       5
+    # define KEY_ANGLE_UP   119
+    # define KEY_ANGLE_DOWN 115
 # endif
 
+# define PI                 3.14159265359
 # define ANGLE              .8
 # define ZOOM               20
-# define ZOOM_SPEED         5
-# define MIN_ZOOM           10
+# define ZOOM_SPEED         2
+# define MIN_ZOOM           5
 # define MAX_ZOOM           100
-# define SHIFT_SPEED        3
+# define SHIFT_SPEED        4
+
+# define INFO_OFFSET        15
 
 # define DEFAULT_COLOR      WHITE
 # define WHITE              0xffffff
 # define BLACK              0x000
+# define GREEN              0x00ff00
+# define BLUE               0x0000ff
+# define CYAN               0xd7f0
 
 #endif

@@ -27,6 +27,14 @@ void    init_env(t_env *env, int argc, const char **argv)
     env->argv = argv;
     env->horizontal_shift = 0;
     env->vertical_shift = 0;
+    env->old_x = 0;
+    env->old_y = 0;
+    env->clicked = FALSE;
+    env->iso = TRUE;
+    env->show_info = FALSE;
+
+    env->alt_scale = 1;
+    
     env->matrix.has_colors = FALSE;
     init_file(&env->file);
     init_win(&env->win);

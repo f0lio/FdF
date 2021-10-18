@@ -28,49 +28,51 @@ char	*str_dup(const char *str)
 	return (dup);
 }
 
+int skip_char(char *str, char c)
+{
+	int i;
+
+	i = 0;
+	while (str[i] && str[i] == c)
+		i++;
+	return i;
+}
+
 int count_by_delim(char *str, char c)
 {
 	int count;
+	int i;
 
 	if (!str)
 		return -1;
 	count = 0;
-	while (*str)
+	i = skip_char(str, ' ');
+	while (str[i])
 	{
-		if (*str == c)
-			count++;
-		*str++;
+		if (str[i] == c)
+		{
+			count++;	
+			while (str[i] && str[i] == c)
+				i++;
+			if (str[i] == '\0')
+				break ;
+		}
+		i++;
 	}
-	return count + 1;
+	return (count + 1);
 }
 
-t_string *init_string(int size)
+char *sub_str(char *line, unsigned start, unsigned end)
 {
-	t_string *s;
+	char *sub;
 
-	s = (t_string*)malloc(sizeof(t_string));
-	s->buf = (char*)malloc(size + 1);
-	s->buf[size] = 0;
-	s->len = size;
-	return s;
-}
-
-t_string *make_string(char *buf, int len)
-{
-	t_string *s;
-
-
-	if (!buf)
-		return NULL;
-	if (len == -1)
-		len = str_len(buf);
-	s = init_string(len);
-	len--;
-	while (len > -1)
+	sub = malloc(end - start + 1);
+	while (start < end)
 	{
-		s->buf[len] = buf[len];
-		len--;
+		*sub = line[start];
+		start++;
+		sub++;
 	}
-	// printf("->[%s]\n", s->buf);
-	return s;
+	*sub = 0;
+	return sub;
 }

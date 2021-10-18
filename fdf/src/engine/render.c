@@ -14,7 +14,8 @@ void set_projection(t_env *env, float *x, float *y)
 	p = env->matrix.data[(int)*y][(int)*x];
 	*x *= env->zoom;
 	*y *= env->zoom;
-	isometric_projection(x, y, 	p.z, ANGLE);
+	if (env->iso)
+		isometric_projection(x, y, 	p.z * env->alt_scale, env->angle);
 	*x += env->horizontal_shift;
 	*y += env->vertical_shift;
 }
@@ -66,4 +67,5 @@ void	render(t_env *env)
         y++;
     }
     update_window(env);
+	show_info(env);
 }
