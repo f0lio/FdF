@@ -18,6 +18,19 @@
 #if __APPLE__
     # define KEY_ESC        53
     # define EXIT_BTN       17
+    # define KEY_LEFT       123
+    # define KEY_RIGHT      124
+    # define KEY_DOWN       125
+    # define KEY_UP         126
+    # define KEY_PLUS       69
+    # define KEY_MINUS      78
+    # define KEY_V          9
+    # define KEY_SPACE      49
+    # define MOUSE_CLICK    1
+    # define MOUSE_DOWN     4
+    # define MOUSE_UP       5
+    # define KEY_ANGLE_UP   13
+    # define KEY_ANGLE_DOWN 1
 # else // Tested on: Ubuntu-20.04.2
     # define KEY_ESC        65307
     # define EXIT_BTN       -1

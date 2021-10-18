@@ -17,8 +17,8 @@ SRC		=	src/fdf.c\
 CC		=	gcc
 FLAGS	=	-Werror -Wextra -Wall
 DBG		=	-g -fsanitize=address  
-# _MLX_	=	-I minilibx -lmlx -framework OpenGL -framework AppKit
-_MLX_	=	-L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11
+_MLX_	=	-I minilibx -lmlx -framework OpenGL -framework AppKit
+# _MLX_	=	-L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11
 
 all: $(NAME)
 

@@ -22,6 +22,7 @@ int mouse_hook(int btn, int x, int y, t_env *env)
         env->clicked = !env->clicked;
     }
     update(env);
+    return 0;
 }
 
 int key_hook(int key, t_env *env)
@@ -45,4 +46,5 @@ int key_hook(int key, t_env *env)
     else if (key == KEY_SPACE)
         env->show_info = !env->show_info;
     update(env);
+    return 0;
 }

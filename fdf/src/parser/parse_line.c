@@ -57,7 +57,7 @@ int parse_color(char *buf, int *i)
 		free(hex);
 		return color;
 	}
-	*i++;
+	(*i)++;
 	return DEFAULT_COLOR;
 }
 
