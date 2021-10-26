@@ -1,108 +1,59 @@
 
 #include "fdf.h"
 
-t_point	*parse_map_line(t_string *line, int *cols)
+t_point *parse_map_line(t_env *env, t_string *line, int *cols)
 {
+	char		**pts;
+	char		**items;
 	t_point		*points;
 	int			i;
-	int 		c;
 	int			col;
-	char		*hex;
 
-	col = count_by_delim(line->buf, ' ');
-	points = (t_point*)malloc(col * sizeof(t_point));
-	i = 0;
-	c = 0;
-	while (i < line->len && c < col)
+	pts = str_split(line->buf, ' ', &col);
+	if (!pts)
+		error_exit(env, ERR_INV_MAP);
+	points = (t_point*)malloc((col + 1) * sizeof(t_point));
+	if (!points)
 	{
-		points[c].z = str_to_int(&line->buf[i]);
-		
-		i += nbr_len(points[c].z);
-		if (i >= line->len)
-			break ;
-		hex = get_hex_from_line(&line->buf[i]);
-		if (hex)
-		{	
-			points[c].color = str_hex_to_int(hex);
-			points[c].color = 0x00ff00;
-			i += str_len(hex) + 1;
-			free(hex);
-		}
+		free_splited_items(pts, col);
+		error_exit(env, ERR_MALLOC);
+	}
+	i = 0;
+	while (i < col)
+	{
+		reset_point(&points[i]);
+		items = str_split(pts[i], ',', NULL);
+		if (!items)
+			error_exit(env, ERR_INV_MAP);
+		points[i].z = str_to_int(items[0]);
+		if (items[1])
+			points[i].color = str_hex_to_int(items[1]);
 		else
 		{
-			if (points[c].z)
-				points[c].color = points[c].z * 0xef0000;
+			if (points[i].z)
+				points[i].color = KINDA_COOL_COLOR;
 			else
-				points[c].color = DEFAULT_COLOR;
-			i++;
+				points[i].color = DEFAULT_COLOR;
 		}
-		c++;
+		free_splited_items(items, (items[0] && items[1]) + 1);
+		if (points[i].z > env->max_z)
+			env->max_z = points[i].z;
+		i++;
 	}
+	free_splited_items(pts, col);
 	*cols = col;
 	return points;
 }
 
-int parse_color(char *buf, int *i)
+void		free_splited_items(char **items, int size)
 {
-	int		color;
-	char	*hex;	
-
-	hex = get_hex_from_line(&buf[*i]); //7 
-	printf("i: %d\n", *i);
-	printf("[%s]\n", &buf[*i]);
-	if (hex)
+	if (!items)
+		return ;
+	while (--size > -1)
 	{
-		color = str_hex_to_int(hex);
-		*i += str_len(hex) + 1;
-		free(hex);
-		return color;
+		free(items[size]);
+		items[size] = NULL;
 	}
-	(*i)++;
-	return DEFAULT_COLOR;
-}
-
-char *get_hex_from_line(char *line)
-{
-	char	*hex;
-	int		i;
-	int		j;
-	int		len;
-
-	i = has_color(line);
-	if (i < 0)
-		return NULL;
-	j = i;
-	len = 0;
-	while (line[i] && line[i] != ' ' && line[i] != '\t')
-	{
-		i++;
-		len++;
-	}
-	// hex = sub_str(line, j, len);
-	hex = (char*)malloc(len + 1);
-	hex[len] = 0;
-	i = 0;
-	while (i < len)
-	{
-		hex[i] = line[j];
-		j++;
-		i++;
-	}
-	return hex;
-}
-
-int has_color(char *line)
-{
-	int i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == ',')
-			return i;
-		if (line[i] != ' ')
-			break ;
-		i++;
-	}
-	return -1;
+	free(items);
+	items = NULL;
 }

@@ -9,7 +9,10 @@
 # define ERR_MLX_WIN        "FAILED AT OPENING WINDOW"
 # define ERR_CLOSE          "FAILED AT CLOSING FILE"
 # define ERR_OPEN           "FAILED AT OPENING FILE"
+# define ERR_MALLOC         "FAILER AT ALLOCATING MEMORY!"
+# define ERR_INV_MAP        "Invalid Map!"
 # define ERR_ARG            "You must provide one valid map as an argument"
+# define BUFFER_SIZE        1024
 
 # define FALSE              0
 # define TRUE               1
@@ -50,16 +53,17 @@
 # endif
 
 # define PI                 3.14159265359
-# define ANGLE              .8
+# define ANGLE              30
 # define ZOOM               20
-# define ZOOM_SPEED         2
-# define MIN_ZOOM           5
-# define MAX_ZOOM           100
+# define ZOOM_SPEED         .3
+# define MIN_ZOOM           1
+# define MAX_ZOOM           32
 # define SHIFT_SPEED        4
 
 # define INFO_OFFSET        15
 
 # define DEFAULT_COLOR      WHITE
+# define KINDA_COOL_COLOR   0x009ff9
 # define WHITE              0xffffff
 # define BLACK              0x000
 # define GREEN              0x00ff00

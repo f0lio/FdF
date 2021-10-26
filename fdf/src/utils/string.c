@@ -21,6 +21,8 @@ t_string *make_string(char *buf, int len)
 	if (len == -1)
 		len = str_len(buf);
 	s = init_string(len);
+	// printf("## [%s]\n", buf);
+	// printf("## %d\n", len);
 	len--;
 	while (len > -1)
 	{
@@ -28,4 +30,10 @@ t_string *make_string(char *buf, int len)
 		len--;
 	}
 	return s;
+}
+
+void	destroy_string(t_string **s)
+{
+	safe_free((void**)&(*s)->buf);
+	safe_free((void**)&(*s));
 }

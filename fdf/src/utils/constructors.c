@@ -21,8 +21,10 @@ void    init_file(t_file *file)
 
 void    init_env(t_env *env, int argc, const char **argv)
 {
-    env->zoom = ZOOM;
-    env->angle = ANGLE;
+    init_file(&env->file);
+    init_win(&env->win);
+    env->zoom = 10;
+    env->angle = (PI/180) * ANGLE;
     env->argc = argc;
     env->argv = argv;
     env->horizontal_shift = 0;
@@ -31,18 +33,15 @@ void    init_env(t_env *env, int argc, const char **argv)
     env->old_y = 0;
     env->clicked = FALSE;
     env->iso = TRUE;
+    env->max_z = 0;
     env->show_info = FALSE;
-
     env->alt_scale = 1;
-    
-    env->matrix.has_colors = FALSE;
-    init_file(&env->file);
-    init_win(&env->win);
+    env->matrix = (t_matrix){0};
 }
 
 void    reset_point(t_point *p)
 {
-    p->color = DEFAULT_COLOR;
+    p->color = 0;
     p->x = 0;
     p->y = 0;
     p->z = 0;

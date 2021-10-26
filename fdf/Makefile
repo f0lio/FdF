@@ -4,10 +4,10 @@
 NAME	=	fdf
 
 HEADERS = 	./includes -lm
-PARSER	= 	read_line.c parse_map.c parse_line.c
-ENGINE	= 	render.c window.c event_hooks.c show_info.c
+PARSER	= 	read_line.c parse_map.c parse_line.c gnl.c
+ENGINE	= 	render.c window.c event_hooks.c show_info.c normalize_alt.c
 UTILS	= 	constructors.c exit_handlers.c write_utils.c linked_list.c\
-			string.c str_utils.c nbr_utils.c
+			string.c str_utils.c nbr_utils.c str_split.c
 
 SRC		=	src/fdf.c\
 			$(PARSER:%.c=./src/parser/%.c)\
@@ -16,14 +16,14 @@ SRC		=	src/fdf.c\
 
 CC		=	gcc
 FLAGS	=	-Werror -Wextra -Wall
-DBG		=	-g -fsanitize=address  
-_MLX_	=	-I minilibx -lmlx -framework OpenGL -framework AppKit
-# _MLX_	=	-L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11
+DBG		=	-g
+# _MLX_	=	-I minilibx -lmlx -framework OpenGL -framework AppKit
+_MLX_	=	-L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11
 
 all: $(NAME)
 
 $(NAME): $(SRC)
-	@$(CC) $(SRC) -I$(HEADERS) $(_MLX_) -o $(NAME) $(DBG) #$(FLAGS)
+	@$(CC) $(SRC) -I$(HEADERS) $(_MLX_) -o $(NAME) $(DBG) $(FLAGS)
 
 clean:
 	@rm -rf *.o

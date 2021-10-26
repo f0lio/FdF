@@ -1,7 +1,7 @@
 
 #include "fdf.h"
 
-static void    setup(t_env *env)
+void    setup(t_env *env)
 {
     if (env->argc != 2)
         error_exit(env, ERR_ARG);
@@ -9,9 +9,12 @@ static void    setup(t_env *env)
     env->vertical_shift = env->win.height / 3;
     read_map(env);
     parse_map(env);
+    normalize_alt(env);
+    env->zoom = get_min(env->win.width / env->matrix.cols / 1.5,
+        env->win.height / env->matrix.rows / 1.5);
 }
 
-static void    start_engine(t_env *env)
+void    start_engine(t_env *env)
 {
     set_window(env);
     set_event_hooks(env);	
@@ -24,10 +27,16 @@ void    update(t_env *env)
     clear_window(env);
     render(env);
 }
+
 int		main(int argc, const char **argv)
 {
 	t_env	env;
 
+    if (argc != 2)
+    {
+        put_str("Error\nYou need to provide one valid map file\n");
+        return (EXIT_FAILURE);
+    }
     init_env(&env, argc, argv);
     setup(&env);
     start_engine(&env);

@@ -1,7 +1,6 @@
 
 #include "fdf.h"
 
-
 int str_hex_to_int(const char *hex)
 {
     int		i;
@@ -50,7 +49,10 @@ int		str_to_int(const char *str)
 		i++;
 	}
 	while (*(str + i) && *(str + i) >= '0' && *(str + i) <= '9')
-		num = num * 10 + (*(str + i++) - '0');
+	{
+		num = num * 10 + (*(str + i) - '0');
+		i++;
+	}
 	return (num * sign);
 }
 
@@ -60,8 +62,12 @@ int		nbr_len(long i)
 
 	if (i <= 9 && i >= -9)
 		return (1 + (i < 0));
-    len = i < 0;
-	i += ((i < 0) * i * -1) || i;
+    len = 0;
+	if (i < 0)
+	{
+		len = 1;
+		i = -i;
+	}
 	while (i && ++len)
 		i /= 10;
 	return (len);
@@ -70,6 +76,13 @@ int		nbr_len(long i)
 float get_max(float a, float b)
 {
     if (a > b)
+        return a;
+    return b;
+}
+
+float get_min(float a, float b)
+{
+    if (a < b)
         return a;
     return b;
 }

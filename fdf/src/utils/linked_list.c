@@ -1,4 +1,3 @@
-
 #include "fdf.h"
 
 t_node	*new_node(void)
@@ -29,4 +28,22 @@ void	push_back(t_node **list, void *data)
 	while (tmp->next != 0)
 		tmp = tmp->next;
 	tmp->next = new;
+}
+
+void	destroy_list(t_node **list, void (*func)(void**))
+{
+	t_node	*current;
+	t_node	*next;
+
+	current = *list;
+	while (current != NULL)
+	{
+		next = current->next;
+		if (func)
+			func((typeof(current->data)) & current->data);
+		safe_free((void **)&current);
+		current = next;
+	}
+	// safe_free((void **)list);
+	*list = NULL;
 }

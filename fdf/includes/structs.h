@@ -66,19 +66,17 @@ typedef struct		s_env
 	t_file			file;
 	t_info			info;
 	t_matrix		matrix;
-	float			horizontal_shift;
-	float			vertical_shift;
-	
+	int				horizontal_shift;
+	int				vertical_shift;
 	BOOL			clicked;
 	BOOL			iso;
 	BOOL			show_info;
 	int				old_x;
 	int				old_y;
-
-	int				alt_scale;
-	
-	int				zoom;
-	double			angle;
+	float			alt_scale;
+	int				max_z;
+	float			zoom;
+	float			angle;
 	int				argc;
 	const char		**argv;
 }					t_env;

@@ -8,20 +8,31 @@ void    set_event_hooks(t_env *env)
     mlx_mouse_hook (env->win.win_p, mouse_hook, env);    
 }
 
-static
 int mouse_hook(int btn, int x, int y, t_env *env)
 {
-    env->zoom += (env->zoom < MAX_ZOOM) * (btn == MOUSE_UP) * ZOOM_SPEED;
-    env->zoom -= (env->zoom > MIN_ZOOM) * (btn == MOUSE_DOWN) * ZOOM_SPEED;
+    BOOL flag;
+
+    flag = FALSE;
+    if (env->zoom < MAX_ZOOM && btn == MOUSE_UP)
+        env->zoom += ZOOM_SPEED;
+    if (env->zoom > MIN_ZOOM && btn == MOUSE_DOWN)
+        env->zoom -= ZOOM_SPEED;
+    flag = (env->zoom < MAX_ZOOM && btn == MOUSE_UP)
+            || (env->zoom > MIN_ZOOM && btn == MOUSE_DOWN);
     if (btn == MOUSE_CLICK)
     {
-        env->horizontal_shift += env->clicked * (x - env->old_x);
-        env->vertical_shift +=   env->clicked * (y - env->old_y);
+        if (env->clicked)
+        {
+            env->horizontal_shift += x - env->old_x;
+            env->vertical_shift +=  y - env->old_y;
+        }
         env->old_x = x;
         env->old_y = y;
         env->clicked = !env->clicked;
+        flag = TRUE;
     }
-    update(env);
+    if (flag)
+        update(env);
     return 0;
 }
 

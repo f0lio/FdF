@@ -5,9 +5,9 @@ void	pxl(t_env *env, t_point *p)
 {
 	int index;
 
-	if (p->x >= env->win.width || p->y >= env->win.height)
+	if (p->x >= env->win.width || p->x < 0)
 		return ;
-	if (p->x < 0 || p->y < 0)
+	if (p->y >= env->win.height || p->y < 0)
 		return ;
 	index = (int)p->x + env->win.width * (int)p->y;
 	env->win.img_d[index] = p->color;

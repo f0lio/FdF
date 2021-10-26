@@ -5,6 +5,8 @@ size_t	str_len(const char *str)
 {
 	size_t len;
 
+	if (!str)
+		return 0;
 	len = 0;
 	while (str[len])
 		len++;
@@ -75,4 +77,16 @@ char *sub_str(char *line, unsigned start, unsigned end)
 	}
 	*sub = 0;
 	return sub;
+}
+
+void	*mem_alloc(int size)
+{
+	void *ptr;
+
+	ptr = malloc(size);
+	if (!ptr)
+		return (NULL);
+	while (--size > -1)
+		((char*)ptr)[size] = 0;
+	return (ptr);
 }

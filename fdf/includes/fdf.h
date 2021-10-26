@@ -13,4 +13,8 @@
 # include "structs.h"
 # include "functions.h"
 
+
+
+int		get_next_line(int fd, char **line);
+
 #endif
