@@ -1,35 +1,39 @@
 #include "fdf.h"
 
-void normalize_alt(t_env *env)
+float	get_resp_ratio(t_env *env)
 {
-    int     x;
-    int     y;
-    float   amplify;
+	if (env->max_z > 100)
+		return (.8);
+	else if (env->max_z > 50)
+		return (.6);
+	else if (env->max_z > 30)
+		return (.8);
+	else if (env->max_z > 20)
+		return (.7);
+	else if (env->max_z >= 10)
+		return (2);
+	else if (env->max_z > 4)
+		return (4);
+	else
+		return (1);
+}
 
-    if (env->max_z > 100)
-        amplify = .8;
-    else if (env->max_z > 50)
-        amplify = .6;
-    else if (env->max_z > 30)
-        amplify = .8;
-    else if (env->max_z > 20)
-        amplify = .7;
-    else if (env->max_z >= 10)
-        amplify = 2;
-    else if (env->max_z > 4)
-        amplify = 4;
-    else
-        return ;
-    y = 0;
-    while (y < env->matrix.rows)
-    {
-        x = 0;
-        while (x < env->matrix.cols)
-        {
-            env->matrix.data[y][x].z *= amplify;
-            x++;
-        }
-        y++;
-    }    
+void	normalize_alt(t_env *env, float ratio)
+{
+	int	x;
+	int	y;
 
+	if (ratio == 1)
+		return ;
+	y = 0;
+	while (y < env->matrix.rows)
+	{
+		x = 0;
+		while (x < env->matrix.cols)
+		{
+			env->matrix.data[y][x].z *= ratio;
+			x++;
+		}
+		y++;
+	}
 }

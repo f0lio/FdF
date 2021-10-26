@@ -44,6 +44,5 @@ void	destroy_list(t_node **list, void (*func)(void**))
 		safe_free((void **)&current);
 		current = next;
 	}
-	// safe_free((void **)list);
 	*list = NULL;
 }

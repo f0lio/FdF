@@ -1,9 +1,8 @@
-
 #include "fdf.h"
 
 static size_t	count_words(char const *s, char c)
 {
-	size_t words;
+	size_t	words;
 
 	words = 0;
 	while (*s)
@@ -20,9 +19,9 @@ static size_t	count_words(char const *s, char c)
 	return (words);
 }
 
-static char		*get_word(char *word, char c)
+static char	*get_word(char *word, char c)
 {
-	char *start;
+	char	*start;
 
 	start = word;
 	while (*word && *word != c)
@@ -31,7 +30,7 @@ static char		*get_word(char *word, char c)
 	return (str_dup(start));
 }
 
-static void		*free_words(char **words, size_t i)
+static void	*free_words(char **words, size_t i)
 {
 	while (i--)
 	{
@@ -42,16 +41,16 @@ static void		*free_words(char **words, size_t i)
 		}
 	}
 	free(*words);
-	return NULL;
+	return (NULL);
 }
 
-static char		**get_words(char *s, char c, size_t words_count)
+static char	**get_words(char *s, char c, size_t words_count)
 {
 	char	**words;
 	char	*word;
 	size_t	i;
 
-    words = (char **)mem_alloc(sizeof(char *) * (words_count + 1));
+	words = (char **)mem_alloc(sizeof(char *) * (words_count + 1));
 	if (words)
 	{
 		i = 0;
@@ -72,7 +71,7 @@ static char		**get_words(char *s, char c, size_t words_count)
 	return (words);
 }
 
-char			**str_split(char const *s, char c, int *items_count)
+char	**str_split(char const *s, char c, int *items_count)
 {
 	char	**words;
 	char	*line;
@@ -82,7 +81,7 @@ char			**str_split(char const *s, char c, int *items_count)
 		return (NULL);
 	line = str_dup(s);
 	if (!line)
-		return NULL;
+		return (NULL);
 	wc = count_words(line, c);
 	words = get_words(line, c, wc);
 	if (items_count)

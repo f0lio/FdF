@@ -1,59 +1,43 @@
-
 #include "fdf.h"
 
-t_point *parse_map_line(t_env *env, t_string *line, int *cols)
+t_point	*parse_map_line(t_env *env, t_string *line, int *col)
 {
+	t_point		*points;
 	char		**pts;
 	char		**items;
-	t_point		*points;
 	int			i;
-	int			col;
 
-	pts = str_split(line->buf, ' ', &col);
-	if (!pts)
-		error_exit(env, ERR_INV_MAP);
-	points = (t_point*)malloc((col + 1) * sizeof(t_point));
+	pts = str_split_wrapper(env, line->buf, ' ', col);
+	points = (t_point *)malloc((*col + 1) * sizeof(t_point));
 	if (!points)
 	{
-		free_splited_items(pts, col);
+		free_splited_items(pts, *col);
 		error_exit(env, ERR_MALLOC);
 	}
 	i = 0;
-	while (i < col)
+	while (i < *col)
 	{
-		reset_point(&points[i]);
-		items = str_split(pts[i], ',', NULL);
-		if (!items)
-			error_exit(env, ERR_INV_MAP);
+		items = str_split_wrapper(env, pts[i], ',', NULL);
 		points[i].z = str_to_int(items[0]);
-		if (items[1])
-			points[i].color = str_hex_to_int(items[1]);
-		else
-		{
-			if (points[i].z)
-				points[i].color = KINDA_COOL_COLOR;
-			else
-				points[i].color = DEFAULT_COLOR;
-		}
-		free_splited_items(items, (items[0] && items[1]) + 1);
+		parse_color(items, &points[i]);
 		if (points[i].z > env->max_z)
 			env->max_z = points[i].z;
 		i++;
 	}
-	free_splited_items(pts, col);
-	*cols = col;
-	return points;
+	free_splited_items(pts, *col);
+	return (points);
 }
 
-void		free_splited_items(char **items, int size)
+void	parse_color(char **items, t_point *p)
 {
-	if (!items)
-		return ;
-	while (--size > -1)
+	if (items[1])
+		p->color = str_hex_to_int(items[1]);
+	else
 	{
-		free(items[size]);
-		items[size] = NULL;
+		if (p->z)
+			p->color = KINDA_COOL_COLOR;
+		else
+			p->color = DEFAULT_COLOR;
 	}
-	free(items);
-	items = NULL;
+	free_splited_items(items, (items[0] && items[1]) + 1);
 }

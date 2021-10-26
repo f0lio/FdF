@@ -1,9 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ommagour <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/26 04:20:20 by f0lio             #+#    #+#             */
+/*   Updated: 2021/10/26 04:21:30 by ommagour         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#ifndef _FDF_H
-# define _FDF_H
-
-# include <stdio.h>
-
+#ifndef FDF_H
+# define FDF_H
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -12,9 +20,4 @@
 # include "macros.h"
 # include "structs.h"
 # include "functions.h"
-
-
-
-int		get_next_line(int fd, char **line);
-
 #endif

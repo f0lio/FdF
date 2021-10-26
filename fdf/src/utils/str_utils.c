@@ -1,12 +1,11 @@
-
 #include "fdf.h"
 
 size_t	str_len(const char *str)
 {
-	size_t len;
+	size_t	len;
 
 	if (!str)
-		return 0;
+		return (0);
 	len = 0;
 	while (str[len])
 		len++;
@@ -30,30 +29,20 @@ char	*str_dup(const char *str)
 	return (dup);
 }
 
-int skip_char(char *str, char c)
+int	count_by_delim(char *str, char c)
 {
-	int i;
-
-	i = 0;
-	while (str[i] && str[i] == c)
-		i++;
-	return i;
-}
-
-int count_by_delim(char *str, char c)
-{
-	int count;
-	int i;
+	int	count;
+	int	i;
 
 	if (!str)
-		return -1;
+		return (-1);
 	count = 0;
 	i = skip_char(str, ' ');
 	while (str[i])
 	{
 		if (str[i] == c)
 		{
-			count++;	
+			count++;
 			while (str[i] && str[i] == c)
 				i++;
 			if (str[i] == '\0')
@@ -64,11 +53,13 @@ int count_by_delim(char *str, char c)
 	return (count + 1);
 }
 
-char *sub_str(char *line, unsigned start, unsigned end)
+char	*sub_str(char *line, unsigned start, unsigned end)
 {
-	char *sub;
+	char	*sub;
 
 	sub = malloc(end - start + 1);
+	if (!sub)
+		return (NULL);
 	while (start < end)
 	{
 		*sub = line[start];
@@ -76,17 +67,17 @@ char *sub_str(char *line, unsigned start, unsigned end)
 		sub++;
 	}
 	*sub = 0;
-	return sub;
+	return (sub);
 }
 
 void	*mem_alloc(int size)
 {
-	void *ptr;
+	void	*ptr;
 
 	ptr = malloc(size);
 	if (!ptr)
 		return (NULL);
 	while (--size > -1)
-		((char*)ptr)[size] = 0;
+		((char *)ptr)[size] = 0;
 	return (ptr);
 }

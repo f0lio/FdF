@@ -1,4 +1,3 @@
-
 #include "fdf.h"
 
 void	put_char(char c)
@@ -8,5 +7,5 @@ void	put_char(char c)
 
 void	put_str(char *str)
 {
-    write(1, str, str_len(str));
+	write(1, str, str_len(str));
 }

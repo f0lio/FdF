@@ -1,4 +1,3 @@
-
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
@@ -16,7 +15,7 @@ typedef struct		s_node
 	struct s_node	*next;
 }					t_node;
 
-typedef struct		s_string
+typedef	struct		s_string
 {
 	char			*buf;
 	int				len;
